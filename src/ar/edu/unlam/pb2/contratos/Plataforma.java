@@ -5,6 +5,7 @@ import java.util.Set;
 import ar.edu.unlam.pb2.entidades.Curso;
 import ar.edu.unlam.pb2.entidades.Estudiante;
 import ar.edu.unlam.pb2.entidades.Persona;
+import ar.edu.unlam.pb2.enums.Idioma;
 import ar.edu.unlam.pb2.excepciones.CapacidadMaximaExcedidaException;
 import ar.edu.unlam.pb2.excepciones.CursoRepetidaException;
 import ar.edu.unlam.pb2.excepciones.EstudianteDuplicadoException;
@@ -18,5 +19,9 @@ public interface Plataforma {
 	Curso buscarCursoPorId(Long id);
 	Set<Estudiante> obtenerEstudiantesEnElCurso();
 	Set<Curso> obtenerCantidadCursos(Estudiante estudiante) throws CursoRepetidaException;
+	Set<Curso> obtenerCursosPorIdioma(Idioma idioma);
+	Curso obtenerCursoMasLargo();
+	Curso obtenerCursoMasCaro();
+	Double calcularPromedioDePrecioCursos();
 	
 }

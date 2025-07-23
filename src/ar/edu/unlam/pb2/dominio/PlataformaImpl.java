@@ -3,13 +3,16 @@ package ar.edu.unlam.pb2.dominio;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import ar.edu.unlam.pb2.contratos.Plataforma;
 import ar.edu.unlam.pb2.entidades.Curso;
 import ar.edu.unlam.pb2.entidades.Estudiante;
 import ar.edu.unlam.pb2.entidades.Inscripcion;
 import ar.edu.unlam.pb2.entidades.Persona;
+import ar.edu.unlam.pb2.enums.Idioma;
 import ar.edu.unlam.pb2.excepciones.CapacidadMaximaExcedidaException;
 import ar.edu.unlam.pb2.excepciones.CursoRepetidaException;
 import ar.edu.unlam.pb2.excepciones.EstudianteDuplicadoException;
@@ -91,6 +94,45 @@ public class PlataformaImpl implements Plataforma{
 		}
 		
 		return obtenerCursos;
+	}
+
+	@Override
+	public Set<Curso> obtenerCursosPorIdioma(Idioma idioma) {
+		Set<Curso> obtenerCursos = new TreeSet<>();
+		
+		for(Curso c : this.cursos) {
+			if(c.getIdiomaCurso().equals(idioma)) {
+				obtenerCursos.add(c);
+			}
+		}
+		
+		return obtenerCursos;
+	}
+
+	@Override
+	public Curso obtenerCursoMasLargo() {
+		
+			if(cursos == null || cursos.isEmpty()) {
+				return null;
+			}
+			
+			Optional<Curso> cursoMasLargo = cursos.stream().max(Comparator.comparingInt(Curso::getHoras));
+			
+			
+			return cursoMasLargo.orElse(null);
+		
+	}
+
+	@Override
+	public Curso obtenerCursoMasCaro() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double calcularPromedioDePrecioCursos() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

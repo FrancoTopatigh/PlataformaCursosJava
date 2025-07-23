@@ -161,5 +161,49 @@ public class PlataformaTest {
 		assertEquals(3, obtenerCantidadCursosEstudiante.size());
 	}
 	
+	@Test
+	public void dadoQueTengoUnaPlataformaDeCursosPuedoObtenerLaCantidadDeCursosFiltradosPorIdioma() throws PersonaRepetidaException, CursoRepetidaException {
+		Profesor profesorFranz = new Profesor(24531208L, "Franz", "Pertz", "franzpertz@outlook.com", "01125630194", 172301L);
+		Profesor profesorClaudio = new Profesor(30231750L, "Claudio", "Schon", "schonclaudio@gmail.com", "01144307241", 203790L);
+		Profesor profesorDavid = new Profesor(31761302L, "David", "Muller", "davidmuller@hotmail.com", "01162410254", 195032L);
+		
+		
+		Curso cursoAleman1 = new CursoPresencial(1L, "Curso Aleman Avanzado", 65000.0, 16, Idioma.ALEMAN, 6, profesorFranz, "Aula 12");
+		Curso cursoAleman2 = new CursoOnline(2L, "Curso Aleman Inicial", 40000.0, 20, Idioma.ALEMAN, 3, profesorClaudio, "Aula virtual 3", "aulaberlin3");
+		Curso cursoAleman3 = new CursoPresencial(3L, "Curso Aleman Intermedio", 55000.0, 12, Idioma.ALEMAN, 6, profesorDavid, "Aula 15");
+		
+		plataforma.agregarPersona(profesorFranz);
+		plataforma.agregarPersona(profesorClaudio);
+		plataforma.agregarPersona(profesorDavid);
+		
+		plataforma.agregarCurso(cursoAleman1);
+		plataforma.agregarCurso(cursoAleman2);
+		plataforma.agregarCurso(cursoAleman3);
+		
+		Set<Curso> obtenerCursosPorIdioma = plataforma.obtenerCursosPorIdioma(Idioma.ALEMAN);
+		Integer CantidadCursosEsperados = 3;
+		
+		assertEquals(CantidadCursosEsperados, obtenerCursosPorIdioma.size(),0.0);
+	}
+	
+	@Test
+	public void dadoQueTengoUnaPlataformaDeCursosPuedoObtenerElCursoMasLargo() throws PersonaRepetidaException, CursoRepetidaException {
+		Profesor profesorJacques = new Profesor(23086312L, "Jacques", "Clemence", "jacquesclemence@gmail.com", "01145213094", 176540L);
+		Profesor profesorXi = new Profesor(22459870L, "Xi", "Chen", "xichen@hotmail.com", "01142307540", 181094L);
+		
+		Curso cursoFrances = new CursoPresencial(1L, "Curso Frances Inicial", 50000.0, 12, Idioma.FRANCES, 4, profesorJacques, "Aula 11");
+		Curso cursoChino = new CursoOnline(2L, "Curso Chino inicial", 50000.0, 10, Idioma.CHINO, 6, profesorXi, "Aula virtual 7", "aula7mandarin");
+		
+		plataforma.agregarPersona(profesorJacques);
+		plataforma.agregarPersona(profesorXi);
+		plataforma.agregarCurso(cursoFrances);
+		plataforma.agregarCurso(cursoChino);
+		
+		Curso cursoMasLargo = plataforma.obtenerCursoMasLargo();
+		
+		assertEquals(cursoChino, cursoMasLargo);
+		
+	}
+	
 	
 }
