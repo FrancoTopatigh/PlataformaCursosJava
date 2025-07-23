@@ -125,14 +125,34 @@ public class PlataformaImpl implements Plataforma{
 
 	@Override
 	public Curso obtenerCursoMasCaro() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(cursos == null || cursos.isEmpty()) {
+			return null;
+		}
+		
+		Optional<Curso> cursoMasCaro = cursos.stream().max(Comparator.comparingDouble(Curso::getPrecio));
+		
+		
+		return cursoMasCaro.orElse(null);
 	}
 
 	@Override
 	public Double calcularPromedioDePrecioCursos() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		
+		if(cursos.isEmpty()) {
+			return 0.0;
+		}
+		
+		Double sum = 0.0;
+		
+		for(Curso c : this.cursos) {
+			sum  += c.getPrecio();
+		}
+		
+		Double promedio = sum / cursos.size();
+		
+		return promedio;
 	}
 	
 	

@@ -205,5 +205,43 @@ public class PlataformaTest {
 		
 	}
 	
+	@Test
+	public void dadoQueTengoUnaPlataformaDeCursosPuedoObtenerElCursoMasCaro() throws PersonaRepetidaException, CursoRepetidaException {
+		Profesor profesorMatteo = new Profesor(28014317L, "Matteo", "Petrini", "matteopetrini@gmail.com", "01145213094", 200748L);
+		Profesor profesorLev = new Profesor(25159531L, "Lev", "Dzyuba", "dzyubalev@hotmail.com", "01128317580", 194214L);
+		
+		Curso cursoItaliano = new CursoPresencial(1L, "Curso Italiano A2", 60000.0, 12, Idioma.ITALIANO, 4, profesorMatteo, "Aula 2");
+		Curso cursoRuso = new CursoOnline(2L, "Curso Ruso intermedio", 55000.0, 10, Idioma.RUSO, 6, profesorLev, "Aula virtual 10", "aulamoscu10");
+		
+		plataforma.agregarPersona(profesorMatteo);
+		plataforma.agregarPersona(profesorLev);
+		plataforma.agregarCurso(cursoItaliano);
+		plataforma.agregarCurso(cursoRuso);
+		
+		Curso cursoMasCaro = plataforma.obtenerCursoMasCaro();
+		assertEquals(cursoItaliano, cursoMasCaro);
+	}
+	
+	@Test
+	public void dadoQueTengoUnaPlataformaDeCursosPuedoObtenerElPrecioPromedioDeLosCursos() throws PersonaRepetidaException, CursoRepetidaException {
+		Profesor profesorJohn = new Profesor(28014317L, "John", "O'Brien", "obrienjohn@gmail.com", "01118051094", 201349L);
+		Profesor profesorHugo = new Profesor(25159531L, "Hugo", "Laurent", "hugolaurent@hotmail.com", "01128317580", 194214L);
+		
+		Curso cursoIngles = new CursoPresencial(1L, "Curso Ingles B1", 40000.0, 12, Idioma.INGLES, 4, profesorJohn, "Aula 7");
+		Curso cursoFrances = new CursoOnline(2L, "Curso Frances B2", 60000.0, 10, Idioma.FRANCES, 6, profesorHugo, "Aula virtual 12", "aulaeiffel12");
+		
+		plataforma.agregarPersona(profesorJohn);
+		plataforma.agregarPersona(profesorHugo);
+		plataforma.agregarCurso(cursoIngles);
+		plataforma.agregarCurso(cursoFrances);
+		
+		Double calcularPromedioDeCursos = plataforma.calcularPromedioDePrecioCursos();
+		Double promedioCursosEsperado = 50000.0;
+		
+		assertEquals(promedioCursosEsperado, calcularPromedioDeCursos);
+		
+		
+	}
+	
 	
 }
