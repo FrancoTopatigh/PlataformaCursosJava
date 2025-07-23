@@ -239,9 +239,48 @@ public class PlataformaTest {
 		Double promedioCursosEsperado = 50000.0;
 		
 		assertEquals(promedioCursosEsperado, calcularPromedioDeCursos);
+	}
+	
+	@Test
+	public void dadoQueTengoUnaPlataformaDeCursosPuedoBuscarUnaPersonaPorSuDNI() throws PersonaRepetidaException {
+		Profesor profesorHugo = new Profesor(25159531L, "Hugo", "Laurent", "hugolaurent@hotmail.com", "01128317580", 194214L);
+		Profesor profesorMartin = new Profesor(30820451L, "Martin", "Perez", "perezmartin@gmail,com", "01155409174", 211209L);
+		Estudiante estudiante = new Estudiante(45270512L, "Facundo", "Rigamonti", "rigamontifacu@gmail.com", "01126520394", 1023);
+		
+		plataforma.agregarPersona(profesorHugo);
+		plataforma.agregarPersona(profesorMartin);
+		plataforma.agregarPersona(estudiante);
+		
+		Persona buscarHugo = plataforma.buscarPersonaPorDNI(25159531L);
+		Persona buscarMartin = plataforma.buscarPersonaPorDNI(30820451L);
+		Persona buscarFacu = plataforma.buscarPersonaPorDNI(45270512L);
+		
+		assertEquals(profesorHugo.getDni(), buscarHugo.getDni());
+		assertEquals(profesorMartin.getDni(), buscarMartin.getDni());
+		assertEquals(estudiante.getDni(), buscarFacu.getDni());
+	}
+	
+	
+	@Test
+	public void dadoQueTengoUnaPlataformaDeCursosPuedoObtenerTodosLosProfesores() throws PersonaRepetidaException {
+		Profesor profesorHugo = new Profesor(25159531L, "Hugo", "Laurent", "hugolaurent@hotmail.com", "01128317580", 194214L);
+		Profesor profesorMartin = new Profesor(30820451L, "Martin", "Perez", "perezmartin@gmail,com", "01155409174", 211209L);
+		Profesor profesorGerd = new Profesor(24257501L, "Gerd", "Bauman", "gerdbauman@hotmail.com", "01120347521", 190280L);
+		
+		plataforma.agregarPersona(profesorHugo);
+		plataforma.agregarPersona(profesorMartin);
+		plataforma.agregarPersona(profesorGerd);
+		
+		
+		Set<Profesor> profesores = plataforma.obtenerTodosLosProfesores();
+		Integer profesoresEsperados = 3;
+		
+		assertEquals(profesoresEsperados, profesores.size(),0.0);
+		
+		
+		
 		
 		
 	}
-	
 	
 }
