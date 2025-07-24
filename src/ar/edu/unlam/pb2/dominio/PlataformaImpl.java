@@ -1,6 +1,7 @@
 package ar.edu.unlam.pb2.dominio;
 
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -55,7 +56,14 @@ public class PlataformaImpl implements Plataforma{
 
 	@Override
 	public Boolean agregarInscripcion(Estudiante estudiante, Curso curso) throws EstudianteDuplicadoException, CapacidadMaximaExcedidaException {
-		return curso.inscribir(estudiante);
+//		return curso.inscribir(estudiante);
+		Boolean estudianteAgregado = curso.inscribir(estudiante);
+		
+		if(estudianteAgregado) {
+			estudiante.getCursosInscritos().add(curso);
+		}
+		
+		return estudianteAgregado;
 	}
 
 	@Override
@@ -184,8 +192,26 @@ public class PlataformaImpl implements Plataforma{
 
 	@Override
 	public Map<Curso, Integer> obtenerCantidadDeEstudiantesPorCurso() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<Curso, Integer> estudiantesPorCurso = new TreeMap<>();
+		
+		for(Persona p : this.personas) {
+			if(p instanceof Estudiante) {
+				Estudiante estudiante = (Estudiante) p;
+				
+				for(Curso c : estudiante.getCursosInscritos()) {
+					if(estudiantesPorCurso.containsKey(c)) {
+						Integer cantActual = estudiantesPorCurso.get(c);
+						estudiantesPorCurso.put(c, cantActual + 1);
+					} else {
+						estudiantesPorCurso.put(c, 1);
+					}
+				}
+				
+			}
+		}
+		
+		
+		return estudiantesPorCurso;
 	}
 	
 	

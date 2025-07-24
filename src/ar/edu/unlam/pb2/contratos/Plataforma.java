@@ -1,5 +1,6 @@
 package ar.edu.unlam.pb2.contratos;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +28,6 @@ public interface Plataforma {
 	Double calcularPromedioDePrecioCursos();
 	Persona buscarPersonaPorDNI(Long dni);
 	Set<Profesor> obtenerTodosLosProfesores();
-	Map<Curso, Integer> obtenerCantidadDeEstudiantesPorCurso(); // TODO:falta hacer este metodo !!!!
+	Map<Curso, Integer> obtenerCantidadDeEstudiantesPorCurso();
 	
 }

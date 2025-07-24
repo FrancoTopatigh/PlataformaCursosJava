@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.Before;
@@ -276,11 +277,32 @@ public class PlataformaTest {
 		Integer profesoresEsperados = 3;
 		
 		assertEquals(profesoresEsperados, profesores.size(),0.0);
-		
-		
-		
-		
-		
 	}
+	
+	@Test
+	public void dadoQueTengoUnaPlataformaDeCursosPuedoObtenerLaCantidadDeEstudiantesPorCurso() throws PersonaRepetidaException, CursoRepetidaException, EstudianteDuplicadoException, CapacidadMaximaExcedidaException {
+		Estudiante estudiante1 = new Estudiante(44291539L, "Joaquin", "Olave", "joacoolave@hotmail.com", "01124127394", 2);
+		Estudiante estudiante2 = new Estudiante(39190220L, "Gaston", "Pereira", "gastipereira@hotmail.com", "01138511390", 3);
+		Estudiante estudiante3 = new Estudiante(44394512L, "Tomas", "Coronel", "tomicoronel@outlook.com", "01142563174", 4);
+		Profesor profesorBrad = new Profesor(26149032L, "Brad", "Carter", "bradmcarter@hotmail.com", "01128317580", 199823L);
+		Curso curso = new CursoPresencial(1L, "Curso Ingles C1", 70000.0, 10, Idioma.INGLES, 4, profesorBrad, "Aula 7"); 
+		
+		plataforma.agregarPersona(estudiante1);
+		plataforma.agregarPersona(estudiante2);
+		plataforma.agregarPersona(estudiante3);
+		plataforma.agregarPersona(profesorBrad);
+		plataforma.agregarCurso(curso);
+		plataforma.agregarInscripcion(estudiante1, curso);
+		plataforma.agregarInscripcion(estudiante2, curso);
+		plataforma.agregarInscripcion(estudiante3, curso);
+		
+		Map<Curso, Integer> obtenerEstudiantesPorCurso = plataforma.obtenerCantidadDeEstudiantesPorCurso();
+		Integer estudiantesPorCursoEsperados = 3;
+		
+		assertEquals(estudiantesPorCursoEsperados, obtenerEstudiantesPorCurso.get(curso),0.0);
+	}
+	
+	
+	
 	
 }

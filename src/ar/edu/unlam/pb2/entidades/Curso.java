@@ -107,6 +107,18 @@ public abstract class Curso implements Comparable<Curso>{
 		return estudiantes.contains(estudiante);
 	}
 
-	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) return true;
+	    if (obj == null || getClass() != obj.getClass()) return false;
+	    Curso other = (Curso) obj;
+	    return this.id != null && this.id.equals(other.id);
+	}
+
+	@Override
+	public int hashCode() {
+	    return id != null ? id.hashCode() : 0;
+	}
+
 	
 }
